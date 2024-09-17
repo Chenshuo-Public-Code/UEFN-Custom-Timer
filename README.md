@@ -248,7 +248,7 @@ We can't launch a new timer on the end event of a registered timer. in fact, I t
 
 The solution is:
 
-When registering a new timer in the time-end-event, call a suspends method with a 0.1 second delay. This will ensure that the timer is cleared before it is registered.
+- When registering a new timer in the time-end-event, call a suspends method with a 0.1 second delay. This will ensure that the timer is cleared before it is registered.
 
-Or we can create two timer instances and call each other for a loop.
+- Or we can create two timer instances and call each other for a loop.
 
