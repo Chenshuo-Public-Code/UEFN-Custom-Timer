@@ -26,6 +26,7 @@ countdown_timer := class():
     var TimerMin:int = 0 
     var TimerSec:int = 0 
     var BreakLoop :logic = false
+    var IsSuccess:logic = false
     
     #Timer UI
     var MaybeUIPerPlayer : [player]?canvas = map{}    #map for player with their UI
@@ -66,6 +67,7 @@ countdown_timer := class():
 
     OnCountDownTimer<private>()<suspends>:void = 
         set BreakLoop = false
+        set IsSuccess = false
         loop:
             Sleep(1.0)
             if(TimeCount>1):
@@ -75,10 +77,12 @@ countdown_timer := class():
                     UpdateTimerUI()
             else:
                 set BreakLoop = true
+                set IsSuccess = true
 
             #Call time complete functions
             if(BreakLoop?):
-                DispatchEndFunction()
+                if(IsSuccess?):
+                    DispatchEndFunction()
                 ResetTimer()
                 break
                 
