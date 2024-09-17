@@ -27,10 +27,8 @@ using { /Fortnite.com/UI }
 using { /Verse.org/Colors/NamedColors }
 using { /UnrealEngine.com/Temporary/SpatialMath }
 
-#Cast string to Message
-StringToMessage<localizes>(value:string) : message = "{value}"
 
-# Function called on every secound, with param of actual secounds
+#Function called on every secound, with param of actual secounds
 sec_fun := type{_(:int):void}
 
 #Function called on countdown finish
@@ -48,7 +46,6 @@ countdown_timer := class():
     var TimerMin:int = 0 
     var TimerSec:int = 0 
     var BreakLoop :logic = false
-    var IsSuccess:logic = false
     
     #Timer UI
     var MaybeUIPerPlayer : [player]?canvas = map{}    #map for player with their UI
@@ -89,7 +86,6 @@ countdown_timer := class():
 
     OnCountDownTimer<private>()<suspends>:void = 
         set BreakLoop = false
-        set IsSuccess = false
         loop:
             Sleep(1.0)
             if(TimeCount>1):
@@ -99,12 +95,10 @@ countdown_timer := class():
                     UpdateTimerUI()
             else:
                 set BreakLoop = true
-                set IsSuccess = true
 
             #Call time complete functions
             if(BreakLoop?):
-                if(IsSuccess?):
-                    DispatchEndFunction()
+                DispatchEndFunction()
                 ResetTimer()
                 break
                 
@@ -165,5 +159,4 @@ countdown_timer := class():
                 if( PlayerUI := GetPlayerUI[Key]):
                     PlayerUI.RemoveWidget(UICanvas)
                     if(set MaybeUIPerPlayer[Key] = false){}
-
-    
+        
