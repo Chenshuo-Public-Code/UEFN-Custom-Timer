@@ -18,7 +18,7 @@ And it doesn't need to be placed in the game, it just needs to be referenced in 
 Here is the full code snippet:
 =
 ***********************************************************************************************
-    
+        
     using { /Fortnite.com/Devices }
     using { /Verse.org/Simulation }
     using { /UnrealEngine.com/Temporary/Diagnostics }
@@ -29,7 +29,7 @@ Here is the full code snippet:
     using { /UnrealEngine.com/Temporary/SpatialMath }
     
     
-    #Function called on every secound, with param of actual secounds
+    # Function called on every secound, with param of actual secounds
     sec_fun := type{_(:int):void}
     
     #Function called on countdown finish
@@ -47,6 +47,7 @@ Here is the full code snippet:
         var TimerMin:int = 0 
         var TimerSec:int = 0 
         var BreakLoop :logic = false
+        var IsSuccess:logic = false
         
         #Timer UI
         var MaybeUIPerPlayer : [player]?canvas = map{}    #map for player with their UI
@@ -87,6 +88,7 @@ Here is the full code snippet:
     
         OnCountDownTimer<private>()<suspends>:void = 
             set BreakLoop = false
+            set IsSuccess = false
             loop:
                 Sleep(1.0)
                 if(TimeCount>1):
@@ -96,10 +98,12 @@ Here is the full code snippet:
                         UpdateTimerUI()
                 else:
                     set BreakLoop = true
+                    set IsSuccess = true
     
                 #Call time complete functions
                 if(BreakLoop?):
-                    DispatchEndFunction()
+                    if(IsSuccess?):
+                        DispatchEndFunction()
                     ResetTimer()
                     break
                     
@@ -160,6 +164,7 @@ Here is the full code snippet:
                     if( PlayerUI := GetPlayerUI[Key]):
                         PlayerUI.RemoveWidget(UICanvas)
                         if(set MaybeUIPerPlayer[Key] = false){}
+            
 
 
 So, how to use this timer? Very easy!
