@@ -87,9 +87,16 @@ Here is the full code snippet:
                     for(Agent:AgentList):
                         CreateUIPlayer(Agent)
         
-        
             StopTimer<public>(): void = 
                 set BreakLoop = true
+                
+            #Hide Timer UI for player, but do not stop the Timer
+            HideTimerUI<public>(Agent : agent):void = 
+                if:
+                    Player := player[Agent]
+                    PlayerUI := GetPlayerUI[Player]
+                then:
+                    PlayerUI.RemoveWidget(UICanvas)
         
         #Private functions:
         
