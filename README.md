@@ -18,8 +18,6 @@ And it doesn't need to be placed in the game, it just needs to be referenced in 
 Here is the full code snippet:
 =
 ***********************************************************************************************
-                
-      using { /Fortnite.com/Devices }
       using { /Verse.org/Simulation }
       using { /UnrealEngine.com/Temporary/Diagnostics }
       using { /Verse.org/Verse }
@@ -27,7 +25,9 @@ Here is the full code snippet:
       using { /Fortnite.com/UI }
       using { /Verse.org/Colors/NamedColors }
       using { /UnrealEngine.com/Temporary/SpatialMath }
-      
+
+      #Cast string to Message
+      StringToMessage<localizes>(value:string) : message = "{value}"
       
       # Function called on every secound, with param of actual secounds
       sec_fun := type{_(:int):void}
